@@ -34,6 +34,19 @@ def alumnos():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template("Alumnos.html",form=create_form)
+
+@app.route("/detalles", methods=['GET','POST'])
+def func():
+    if request.method== 'GET':
+        id=request.args.get('id')
+        #select * from alumnos where id=id
+        alum1=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+        nombre=alum1.nombre
+        apaterno=alum1.apaterno
+        email=alum1.email
+    return render_template('detalles.html',id=id,nombre=nombre,
+                            apaterno=apaterno,email=email)
+
     
 if __name__ == '__main__':
     with app.app_context():
