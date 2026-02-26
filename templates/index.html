@@ -41,19 +41,22 @@
           {{alumn.nombre}}
         </th>
         <td class="px-6 py-4">
-          {{alumn.apaterno}}
+          {{alumn.apellidos}}
+        </td>
+        <td class="px-6 py-4">
+          {{alumn.telefono}}
         </td>
         <td class="px-6 py-4">
           {{alumn.email}}
         </td>
         <td class="px-6 py-4">
-          <a href="#" class="font-medium text-fg-brand hover:underline">Modificar</a>
+          <a href="modificar?id={{ alumn.id }}" class="font-medium text-fg-brand hover:underline">Modificar</a>
         </td>
         <td class="px-6 py-4">
           <a href="detalles?id={{ alumn.id }}" class="font-medium text-fg-brand hover:underline">Detalles</a>
         </td>
         <td class="px-6 py-4">
-          <a href="#" class="font-medium text-fg-brand hover:underline">Eliminar</a>
+          <a href="eliminar?id={{ alumn.id }}" class="font-medium text-fg-brand hover:underline">Eliminar</a>
         </td>
       </tr>
       {% endfor %}

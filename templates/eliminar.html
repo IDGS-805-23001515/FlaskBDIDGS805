@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros%}
+
+<form action="" method="POST" novalidate class="max-w-sm mx-auto space-y-4">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <div>
+        {{macros.camposNuevos(form.id, class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs placeholder:text-body")}}
+    </div>
+    <div>
+        {{macros.camposNuevos(form.nombre, class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs placeholder:text-body")}}
+    </div>
+    <div>
+        {{macros.camposNuevos(form.apellidos, class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs placeholder:text-body")}}
+    </div>
+    <div>
+        {{macros.camposNuevos(form.telefono, class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs placeholder:text-body")}}
+    </div>
+    <div>
+        {{macros.camposNuevos(form.email, class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs placeholder:text-body")}}
+    </div>
+    <button type="submit" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Eliminar</button>    
+</form>
+
+{% endblock %}
