@@ -3,13 +3,8 @@
 {% import "_macros.html" as macros%}
 
 <form action="" method="POST" novalidate class="max-w-sm mx-auto space-y-4">
-    {{ form.csrf_token }}
+    {{form.csrf_token}}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <div>
-        {{macros.camposNuevos(form.id, class="bg-neutral-secondary-medium border border-default-medium text-heading
-        text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
-        placeholder:text-body")}}
-    </div>
     <div>
         {{macros.camposNuevos(form.nombre, class="bg-neutral-secondary-medium border border-default-medium text-heading
         text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
@@ -21,7 +16,7 @@
         placeholder:text-body")}}
     </div>
     <div>
-        {{macros.camposNuevos(form.telefono, class="bg-neutral-secondary-medium border border-default-medium
+        {{macros.camposNuevos(form.especialidad, class="bg-neutral-secondary-medium border border-default-medium
         text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
         placeholder:text-body")}}
     </div>
@@ -31,9 +26,9 @@
         placeholder:text-body")}}
     </div>
     <button type="submit"
-        class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Eliminar</button>
-    <a href="{{ url_for('index') }}"
-        class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+        class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Agregar</button>
+    <a href="{{ url_for('maestros.listado') }}"
+        class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 transition">
         Cancelar
     </a>
 </form>

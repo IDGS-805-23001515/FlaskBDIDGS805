@@ -1,0 +1,82 @@
+import forms
+from models import db, Maestros
+from . import maestros 
+from flask import app, render_template, request, redirect, url_for
+
+@maestros.route("/maestros", methods=["GET", "POST"])
+def listado():
+    create_form = forms.UserForm2(request.form)
+    maestros = Maestros.query.all()
+    return render_template("maestros/listadoMaes.html", form = create_form, maestros=maestros)
+
+@maestros.route("/maestros/insertar", methods=["GET", "POST"])
+def insertar():
+    create_form = forms.UserForm2(request.form)
+    if request.method == "POST":
+        master=Maestros(nombre=create_form.nombre.data,
+                    apellidos=create_form.apellidos.data,
+                    especialidad=create_form.especialidad.data,
+                    email=create_form.email.data
+                    )
+        db.session.add(master)
+        db.session.commit()
+        return redirect(url_for("maestros.listado"))
+    return render_template("maestros/insertar.html", form=create_form)
+
+@maestros.route("/maestros/detalles", methods=["GET", "POST"])
+def detalles():
+    if request.method == "GET":
+        matricula = request.args.get('matricula')
+        maester = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+        nombre = maester.nombre
+        apellidos = maester.apellidos
+        especialidad = maester.especialidad
+        email = maester.email        
+    return render_template("maestros/detalles.html", matricula=matricula, nombre=nombre, apellidos=apellidos,email=email, especialidad=especialidad)
+
+
+@maestros.route("/maestros/modificar", methods=["GET", "POST"])
+def modificar():
+    create_form = forms.UserForm2(request.form)
+    if request.method == "GET":
+        matricula = request.args.get('matricula')
+        maester = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+        create_form.matricula.data = maester.matricula 
+        create_form.nombre.data = maester.nombre
+        create_form.apellidos.data = maester.apellidos
+        create_form.email.data = maester.email
+        create_form.especialidad.data = maester.especialidad
+    if request.method == "POST":
+        matricula = create_form.matricula.data
+        master = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+        master.nombre = create_form.nombre.data
+        master.apellidos = create_form.apellidos.data
+        master.email = create_form.email.data        
+        master.especialidad = create_form.especialidad.data        
+        db.session.add(master)
+        db.session.commit()
+        return redirect(url_for("maestros.listado"))
+    return render_template("maestros/modificar.html", form=create_form, matricula=matricula)
+
+@maestros.route("/maestros/eliminar", methods=["GET", "POST"])
+def eliminar():
+    create_form = forms.UserForm2(request.form)
+    if request.method == "GET":
+        matricula = request.args.get('matricula')
+        maester = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+        create_form.matricula.data = maester.matricula 
+        create_form.nombre.data = maester.nombre
+        create_form.apellidos.data = maester.apellidos
+        create_form.email.data = maester.email
+        create_form.especialidad.data = maester.especialidad
+    if request.method == "POST":
+        matricula = create_form.matricula.data
+        master = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+        db.session.delete(master)
+        db.session.commit()
+        return redirect(url_for("maestros.listado"))
+    return render_template("maestros/eliminar.html", form=create_form, matricula=matricula)
+
+@maestros.route('/perfil/<nombre>')
+def perfil(nombre):
+    return f"Perfil de {nombre}"

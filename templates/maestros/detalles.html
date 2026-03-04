@@ -1,0 +1,66 @@
+{% extends "layout.html"%}
+{% block container %}
+
+<div class="group py-32 relative overflow-x-auto sm:rounded-lg">
+    <div class="relative bg-neutral-primary-soft max-w-xs w-full p-6 border border-default rounded-base shadow-xs">
+
+        <button id="dropdownButton" data-dropdown-toggle="dropdown"
+            class="absolute top-2 end-2 text-body hover:text-heading bg-neutral-primary-soft box-border border border-transparent hover:bg-neutral-tertiary focus:ring-4 focus:ring-neutral-tertiary rounded-base p-1.5 focus:outline-none"
+            type="button">
+            <span class="sr-only">Open dropdown</span>
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
+            </svg>
+        </button>
+
+        <!-- Dropdown menu -->
+        <div id="dropdown"
+            class="z-10 bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-36 hidden">
+            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownButton">
+                <li>
+                    <a href="#"
+                        class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Edit</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded-md">Export
+                        Data</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="inline-flex items-center w-full p-2 text-fg-danger hover:bg-neutral-tertiary-medium rounded-md">Delete</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="flex flex-col items-center">
+            <img class="w-24 h-24 mb-6 rounded-full" src="{{ url_for('static', filename='img/usuario.png') }}"
+                alt="User image" />
+
+            <h5 class="mb-1 text-xl font-semibold tracking-tight text-heading">
+                Nombre: {{ nombre }} {{ apellidos }}
+            </h5>
+
+            <p class="mb-2 text-base text-body">
+                Correo: <span class="font-medium text-heading">{{ email }}</span>
+            </p>
+
+            <p class="mb-3 text-base text-body">
+                Especialidad: <span class="font-medium text-heading">{{ especialidad }}</span>
+            </p>
+
+            <span class="text-sm text-body">Maestro</span>
+
+            <div class="flex mt-4 md:mt-6 gap-4">
+                <a href="{{ url_for('maestros.listado') }}"
+                    class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 transition">
+                    Cancelar
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}s
