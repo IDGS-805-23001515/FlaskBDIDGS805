@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<form action="" method="POST" novalidate class="max-w-sm mx-auto space-y-4">
+    {{ form.csrf_token }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {{ form.id(type="hidden") }}
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-heading">Nombre</label>
+        {{ form.nombre(
+            class="bg-gray-100 border border-default-medium text-heading text-sm rounded-base block w-full px-2.5 py-2 shadow-xs cursor-not-allowed",
+            disabled=True
+        ) }}
+    </div>
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-heading">Descripción</label>
+        {{ form.descripcion(
+            class="bg-gray-100 border border-default-medium text-heading text-sm rounded-base block w-full px-2.5 py-2 shadow-xs cursor-not-allowed",
+            disabled=True
+        ) }}
+    </div>
+
+    <div>
+        <label class="block mb-2 text-sm font-medium text-heading">Maestro</label>
+        {{ form.maestro_id(
+            class="bg-gray-100 border border-default-medium text-heading text-sm rounded-base block w-full px-2.5 py-2 shadow-xs cursor-not-allowed",
+            disabled=True
+        ) }}
+    </div>
+
+    <button type="submit"
+        class="text-white bg-red-600 hover:bg-red-700 shadow-xs font-medium rounded-base text-sm px-4 py-2.5">
+        Confirmar eliminación
+    </button>
+
+    <a href="{{ url_for('cursos.index') }}"
+        class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+        Cancelar
+    </a>
+</form>
+
+{% endblock %}

@@ -9,14 +9,9 @@
   <h2 class="text-base font-semibold text-heading">Alumnos</h2>
 
   <div class="flex flex-wrap gap-2">
-    <a href="{{ url_for('alumnos') }}"
+    <a href="{{ url_for('alumnos.crear_alumno') }}"
        class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition">
       + Nuevo Alumno
-    </a>
-
-    <a href="{{ url_for('maestros.listado') }}"
-       class="inline-flex items-center gap-2 rounded-lg border border-blue-600 bg-white px-4 py-2 text-sm font-semibold text-blue-700 shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 transition">
-      Módulo Maestros
     </a>
   </div>
 </div>
@@ -37,6 +32,9 @@
         </th>
         <th scope="col" class="px-6 py-3 font-medium">
           Modiicar
+        </th>
+        <th scope="col" class="px-6 py-3 font-medium">
+          Inscripciones
         </th>
         <th scope="col" class="px-6 py-3 font-medium">
           Detalles
@@ -68,6 +66,14 @@
 </td>
 
 <td class="px-6 py-4">
+  <a href="{{ url_for('inscripciones.index', alumno_id=alumn.id) }}"
+     class="inline-flex items-center rounded-md bg-sky-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-sky-700 transition">
+    Inscripciones
+  </a>
+</td>
+
+
+<td class="px-6 py-4">
   <a href="detalles?id={{ alumn.id }}"
      class="inline-flex items-center rounded-md bg-slate-700 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 transition">
     Detalles
@@ -75,7 +81,7 @@
 </td>
 
 <td class="px-6 py-4">
-  <a href="eliminar?id={{ alumn.id }}"
+  <a href="{{ url_for('alumnos.eliminar', id=alumn.id) }}"
      class="inline-flex items-center rounded-md bg-red-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm hover:bg-red-700 transition">
     Eliminar
   </a>

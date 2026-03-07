@@ -1,31 +1,85 @@
 from wtforms import Form
-from wtforms import IntegerField, StringField, PasswordField
-from wtforms import EmailField
+from wtforms import IntegerField, StringField,  EmailField, SelectField
 from wtforms import validators
 
-class UserForm2(Form):
+class AlumnoForm(Form):
+
     id = IntegerField("Id")
-    nombre=StringField("Nombre", [
+
+    nombre = StringField("Nombre", [
         validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=4, max=10, message="Ingrese un valor valido")
+        validators.Length(min=4, max=20)
     ])
+
+    apellidos = StringField("Apellidos", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.Length(min=4, max=20)
+    ])
+
+    email = EmailField("Correo", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.Email(message="Ingrese correo válido")
+    ])
+
+    telefono = StringField("Teléfono", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.Length(min=10, max=10)
+    ])
+
+class MaestroForm(Form):
+
     matricula = IntegerField("Matricula")
-    nombre=StringField("Nombre", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=4, max=10, message="Ingrese un valor valido")
+
+    nombre = StringField("Nombre", [
+        validators.DataRequired(),
+        validators.Length(min=4, max=20)
     ])
-    apellidos=StringField("Apellidos", [
-        validators.DataRequired(message="El campo es requerido")
+
+    apellidos = StringField("Apellidos", [
+        validators.DataRequired(),
+        validators.Length(min=4, max=20)
     ])
-    email=EmailField("Correo", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.Email(message="Ingrese correo válido")
+
+    email = EmailField("Correo", [
+        validators.DataRequired(),
+        validators.Email()
     ])
-    telefono=EmailField("Teléfono", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.Email(message="Ingrese correo válido")
+
+    especialidad = StringField("Especialidad", [
+        validators.DataRequired(),
+        validators.Length(min=4, max=50)
     ])
-    especialidad=EmailField("Especialidad", [
-        validators.DataRequired(message="El campo es requerido"),
-        validators.Email(message="Ingrese correo válido")
+
+class CursoForm(Form):
+
+    id = IntegerField("ID")
+
+    nombre = StringField("Nombre", [
+        validators.DataRequired(),
+        validators.Length(min=4, max=150)
     ])
+
+    descripcion = StringField("Descripcion", [
+        validators.DataRequired(),
+        validators.Length(min=4, max=150)
+    ])
+
+    maestro_id = SelectField(
+        "Maestro",
+        coerce=int,
+        validators=[validators.DataRequired()]
+    )
+
+class InscripcionForm(Form):
+
+    alumno_id = SelectField(
+        "Alumno",
+        coerce=int,
+        validators=[validators.DataRequired()]
+    )
+
+    curso_id = SelectField(
+        "Curso",
+        coerce=int,
+        validators=[validators.DataRequired()]
+    )

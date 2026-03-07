@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="space-y-6">
+    <h1 class="text-2xl font-bold text-heading">
+        Cursos de {{ maestro.nombre }} {{ maestro.apellidos }}
+    </h1>
+
+    {% if cursos_dict %}
+        {% for item in cursos_dict.values() %}
+        <div class="bg-white border rounded-lg shadow-sm p-4">
+            <h2 class="text-lg font-semibold mb-3">
+                {{ item.curso.nombre }}
+            </h2>
+
+            {% if item.alumnos %}
+            <ul class="list-disc pl-6 space-y-1">
+                {% for alumno in item.alumnos %}
+                <li>
+                    {{ alumno.nombre }} {{ alumno.apellidos }} - {{ alumno.email }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-gray-500">Este curso no tiene alumnos inscritos.</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-gray-500">Este maestro no tiene cursos registrados.</p>
+    {% endif %}
+
+    <a href="{{ url_for('maestros.listado') }}"
+       class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring-4 focus:outline-none">
+        Volver
+    </a>
+</div>
+
+{% endblock %}

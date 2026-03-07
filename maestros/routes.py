@@ -1,17 +1,24 @@
-import forms
-from models import db, Maestros
-from . import maestros 
-from flask import app, render_template, request, redirect, url_for
+from forms import MaestroForm
+from models import db, Maestros, Alumnos, Inscripciones
+from . import maestros
+from cursos.routes import Curso
+from flask import Blueprint, render_template, request, redirect, url_for
+
+alumnos = Blueprint("maestros", __name__)
 
 @maestros.route("/maestros", methods=["GET", "POST"])
 def listado():
-    create_form = forms.UserForm2(request.form)
+    create_form = MaestroForm(request.form)
     maestros = Maestros.query.all()
-    return render_template("maestros/listadoMaes.html", form = create_form, maestros=maestros)
+    return render_template(
+        "maestros/listadoMaes.html",
+        form=create_form,
+        maestros=maestros
+    )
 
 @maestros.route("/maestros/insertar", methods=["GET", "POST"])
 def insertar():
-    create_form = forms.UserForm2(request.form)
+    create_form = MaestroForm(request.form)
     if request.method == "POST":
         master=Maestros(nombre=create_form.nombre.data,
                     apellidos=create_form.apellidos.data,
@@ -37,7 +44,7 @@ def detalles():
 
 @maestros.route("/maestros/modificar", methods=["GET", "POST"])
 def modificar():
-    create_form = forms.UserForm2(request.form)
+    create_form = MaestroForm(request.form)
     if request.method == "GET":
         matricula = request.args.get('matricula')
         maester = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
@@ -60,7 +67,7 @@ def modificar():
 
 @maestros.route("/maestros/eliminar", methods=["GET", "POST"])
 def eliminar():
-    create_form = forms.UserForm2(request.form)
+    create_form = MaestroForm(request.form)
     if request.method == "GET":
         matricula = request.args.get('matricula')
         maester = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
@@ -80,3 +87,35 @@ def eliminar():
 @maestros.route('/perfil/<nombre>')
 def perfil(nombre):
     return f"Perfil de {nombre}"
+
+@maestros.route("/maestros/cursos")
+def cursos_maestro():
+    maestro_id = request.args.get("maestro_id", type=int)
+
+    maestro = Maestros.query.get_or_404(maestro_id)
+
+    resultados = db.session.query(
+        Curso, Alumnos
+    ).join(
+        Inscripciones, Curso.id == Inscripciones.curso_id
+    ).join(
+        Alumnos, Inscripciones.alumno_id == Alumnos.id
+    ).filter(
+        Curso.maestro_id == maestro_id
+    ).all()
+
+    cursos_dict = {}
+
+    for curso, alumno in resultados:
+        if curso.id not in cursos_dict:
+            cursos_dict[curso.id] = {
+                "curso": curso,
+                "alumnos": []
+            }
+        cursos_dict[curso.id]["alumnos"].append(alumno)
+
+    return render_template(
+        "maestros/cursos_maestro.html",
+        maestro=maestro,
+        cursos_dict=cursos_dict
+    )

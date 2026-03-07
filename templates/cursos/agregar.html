@@ -11,24 +11,17 @@
         placeholder:text-body")}}
     </div>
     <div>
-        {{macros.camposNuevos(form.apellidos, class="bg-neutral-secondary-medium border border-default-medium
+        {{macros.camposNuevos(form.descripcion, class="bg-neutral-secondary-medium border border-default-medium
         text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
         placeholder:text-body")}}
     </div>
     <div>
-        {{macros.camposNuevos(form.especialidad, class="bg-neutral-secondary-medium border border-default-medium
-        text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
-        placeholder:text-body")}}
+        {{ macros.camposNuevos(form.maestro_id, class="w-full rounded-md border px-2.5 py-2 bg-white text-gray-900") }}
     </div>
-    <div>
-        {{macros.camposNuevos(form.email, class="bg-neutral-secondary-medium border border-default-medium text-heading
-        text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs
-        placeholder:text-body")}}
-    </div>
-    <button type="submit"
+        <button type="submit"
         class="text-white bg-green-500 box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Agregar</button>
-    <a href="{{ url_for('maestros.listado') }}"
-        class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 transition">
+    <a href="{{ url_for('cursos.index') }}"
+        class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
         Cancelar
     </a>
 </form>
